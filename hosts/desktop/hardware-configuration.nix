@@ -15,38 +15,35 @@
   ];
 
   boot.initrd.availableKernelModules = [
-    "nvme"
-    "xhci_pci"
+    "ata_piix"
+    "ohci_pci"
+    "ehci_pci"
     "ahci"
     "usbhid"
     "usb_storage"
     "sd_mod"
+    "sr_mod"
   ];
   boot.initrd.kernelModules = [ ];
   boot.kernelModules = [ ];
   boot.extraModulePackages = [ ];
 
-  fileSystems."/" = {
-    device = "/dev/mapper/luks-3ba29b52-605a-4405-a6c3-1cf20d810b16";
-    fsType = "ext4";
-  };
+  fileSystems."/" =
+    { device = "/dev/disk/by-uuid/a94ef0e3-0dec-427c-b926-385ffa69e5c2";
+      fsType = "ext4";
+    };
 
-  boot.initrd.luks.devices."luks-3ba29b52-605a-4405-a6c3-1cf20d810b16".device =
-    "/dev/disk/by-uuid/3ba29b52-605a-4405-a6c3-1cf20d810b16";
+  fileSystems."/boot" =
+    { device = "/dev/disk/by-uuid/FB36-924E";
+      fsType = "vfat";
+      options = [ "fmask=0077" "dmask=0077" ];
+    };
 
-  fileSystems."/boot" = {
-    device = "/dev/disk/by-uuid/D751-B601";
-    fsType = "vfat";
-    options = [
-      "fmask=0077"
-      "dmask=0077"
+  swapDevices =
+    [ { device = "/dev/disk/by-uuid/19f16d3d-04a6-40ad-a5de-d10f4475f62d"; }
     ];
-  };
-
-  swapDevices = [
-    { device = "/dev/mapper/luks-7d7b6fbb-f87b-454a-a613-74e38b810ae9"; }
-  ];
 
   nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
   hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  virtualisation.virtualbox.guest.enable = true;
 }

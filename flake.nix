@@ -21,13 +21,6 @@
     # https://nix.catppuccin.com/getting-started/flakes/
     catppuccin.url = "github:catppuccin/nix/release-25.11";
 
-    nix-citizen.url = "github:LovingMelody/nix-citizen";
-
-    sops-nix = {
-      url = "github:Mic92/sops-nix";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
     nix-flatpak.url = "github:gmodena/nix-flatpak";
   };
 
@@ -35,35 +28,25 @@
     {
       self,
       nixpkgs,
-      nix-darwin,
+      nixdarwin,
       home-manager,
       catppuccin,
-      sops-nix,
       ...
     }@inputs:
     let
       inherit (self) outputs;
 
       users = {
-        grabowskip = {
+	adriwin = {        
           avatar = ./files/avatar/face.jpg;
-          email = "grabowskip@icloud.com";
-          fullName = "Patryk Grabowski";
-          name = "grabowskip";
-          signingKey = "E7BF4CD07ECA63F7!"; # [S] subkey on card; ! forces use of this specific subkey
+          email = "grzegorzpietrucha15@gmail.com";
+          fullName = "Grzegorz Pietrucha";
+          name = "adriwin";
         };
-        work = {
-          inherit (users.grabowskip) avatar fullName;
-          email = "patryk.grabowski@iqvia.com";
-          name = "patryk.grabowski@iqvia.com"; # OS username stays the same
-          signingKey = null;
-        };
-        patrykgrabowski = {
-          avatar = ./files/avatar/face.jpg;
-          email = "grabowskip@icloud.com";
-          fullName = "Patryk Grabowski";
-          name = "patrykgrabowski";
-          signingKey = "E7BF4CD07ECA63F7!"; # [S] subkey on card; ! forces use of this specific subkey
+	work = {
+          inherit (users.adriwin) avatar fullName;
+          email = "grzegorz.pietrucha@iqvia.com";
+          name = "grzegorz.pietrucha@iqvia.com"; # OS username stays the same
         };
       };
 
@@ -83,12 +66,11 @@
       formatter.x86_64-linux = nixpkgs.legacyPackages.x86_64-linux.nixfmt-rfc-style;
 
       nixosConfigurations = {
-        koksownik = mkNixosConfiguration "koksownik" "grabowskip";
+        desktop = mkNixosConfiguration "desktop" "adriwin";
       };
 
       darwinConfigurations = {
         iqvia-mbp = mkDarwinConfiguration "iqvia-mbp" "work";
-        dmuchawa = mkDarwinConfiguration "dmuchawa" "patrykgrabowski";
       };
     };
 }

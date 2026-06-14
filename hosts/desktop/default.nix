@@ -19,9 +19,6 @@
     "${nixosModules}/programs"
   ];
 
-  boot.initrd.luks.devices."luks-7d7b6fbb-f87b-454a-a613-74e38b810ae9".device =
-    "/dev/disk/by-uuid/7d7b6fbb-f87b-454a-a613-74e38b810ae9";
-
   networking.hostName = hostname;
 
   # https://nixos.wiki/wiki/AMD_GPU

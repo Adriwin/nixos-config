@@ -11,8 +11,6 @@
     ./bootloader.nix
     ./fonts.nix
     ./packages.nix
-    ./sops.nix
-    ./yubikey.nix
   ];
 
   catppuccin = {

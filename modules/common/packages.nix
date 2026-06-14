@@ -12,7 +12,6 @@
     wireguard-tools
 
     nixos-generators
-    sops
     age
     just
     go
