@@ -28,7 +28,7 @@
     {
       self,
       nixpkgs,
-      nixdarwin,
+      nix-darwin,
       home-manager,
       catppuccin,
       ...
