@@ -49,7 +49,7 @@
   # this value at the release version of the first install of this system.
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
-  system.stateVersion = "25.11"; # Did you read the comment?
+  system.stateVersion = "26.05"; # Did you read the comment?
 
   services.ollama = {
     enable = true;
@@ -58,7 +58,6 @@
     #   "llama3.2:3b"
     #   "deepseek-r1:1.5b"
     # ];
-    acceleration = "rocm";
     package = pkgs.ollama-rocm;
   };
   services.open-webui = {

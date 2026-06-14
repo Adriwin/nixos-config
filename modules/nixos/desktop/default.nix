@@ -30,7 +30,6 @@
   };
 
   services.flatpak.enable = true;
-  programs.adb.enable = true;
 
   environment.variables = {
     XDG_CURRENT_DESKTOP = "Hyprland";

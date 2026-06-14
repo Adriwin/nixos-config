@@ -13,7 +13,7 @@
 
   # stateVersion: set to the NixOS release this machine was FIRST installed with.
   # Do NOT change this on upgrades. See: https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
-  home.stateVersion = "25.11";
+  home.stateVersion = "26.05";
 
   wayland.windowManager.hyprland.settings.monitor = [
     "DP-1"
