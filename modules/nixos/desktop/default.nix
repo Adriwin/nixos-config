@@ -3,7 +3,6 @@
   imports = [
     ./audio.nix
     ./packages.nix
-    ./samba.nix
   ];
   # Enable GDM display manager
   # services.displayManager.gdm.enable = true;
