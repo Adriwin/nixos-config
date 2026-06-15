@@ -158,8 +158,8 @@
       ];
 
       workspace = [
-        "1, monitor:auto, default::true"
-        "2, monitor:auto, default::true"
+        "1, monitor:auto, default:true"
+        "2, monitor:auto, default:true"
       ];
 
       bind = [
