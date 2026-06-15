@@ -15,13 +15,14 @@
   # Do NOT change this on upgrades. See: https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "26.05";
 
-  wayland.windowManager.hyprland.settings.monitor = [
-    "DP-1"
-  ];
+  # TODO: change these values to be correct for my PC
+  #wayland.windowManager.hyprland.settings.monitor = [
+  #  "DP-1"
+  #];
 
-  services.hyprpaper.settings.wallpaper = [
-    "DP-1,~/.config/wallpapers/default.jpg"
-  ];
+  #services.hyprpaper.settings.wallpaper = [
+  #  "DP-1,~/.config/wallpapers/default.jpg"
+  #];
 
   home.file.zellij-layout.source = config.lib.file.mkOutOfStoreSymlink ./zellij-layout.kdl;
   home.file.zellij-layout.target = "./default.kdl";

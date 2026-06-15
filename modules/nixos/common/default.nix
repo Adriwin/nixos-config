@@ -74,9 +74,6 @@
     };
   };
 
-  hardware.logitech.wireless.enable = true;
-  hardware.logitech.wireless.enableGraphical = true;
-
   services.flatpak = {
     enable = true;
     update.onActivation = true;
