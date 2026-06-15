@@ -158,7 +158,8 @@
       ];
 
       workspace = [
-        "1, monitor:DP-1"
+        "1, monitor:HDMI-A-1, default::true"
+        "2, monitor:DP-1, default::true"
       ];
 
       bind = [
