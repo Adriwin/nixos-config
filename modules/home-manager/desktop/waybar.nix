@@ -125,8 +125,6 @@
             "class<Terminator>" = "󰞷";
 
             # Email
-            "class<thunderbird>" = "󰇮";
-            "class<Thunderbird>" = "󰇮";
             "class<evolution>" = "󰇮";
             "class<Evolution>" = "󰇮";
             "class<geary>" = "󰇮";
@@ -177,16 +175,12 @@
             "class<PCManFM>" = "󰉋";
 
             # Password Managers
-            "class<1password>" = "󰢁";
-            "class<1Password>" = "󰢁";
             "class<bitwarden>" = "󰢁";
             "class<Bitwarden>" = "󰢁";
             "class<keepassxc>" = "󰢁";
             "class<KeePassXC>" = "󰢁";
 
             # System Tools
-            "class<solaar>" = "󰍽";
-            "class<Solaar>" = "󰍽";
             "class<pavucontrol>" = "󰓃";
             "class<Pavucontrol>" = "󰓃";
             "class<blueman-manager>" = "󰂯";

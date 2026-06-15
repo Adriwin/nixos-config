@@ -10,10 +10,6 @@
       local mod = "SUPER"
       local mainMod = "SUPER"
 
-      hl.xwayland({
-          force_zero_scaling = true
-      })
-
       hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
       hl.env("XDG_SESSION_TYPE", "wayland")
       hl.env("XDG_SESSION_DESKTOP", "Hyprland")
@@ -26,6 +22,9 @@
       hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
       hl.config({
+          xwayland = {
+            force_zero_scaling = true;
+          };
           debug = {
               disable_logs = false,
               enable_stdout_logs = true,
@@ -87,12 +86,10 @@
       hl.window_rule({ match = { class = ".blueman-manager-wrapped" }, float = true, center = true, pin = true })
       hl.window_rule({ match = { class = "kitty" }, workspace = "1 silent" })
       hl.window_rule({ match = { class = "steam" }, workspace = "7 silent" })
-      hl.window_rule({ match = { class = "1password" }, workspace = "8 silent" })
-      hl.window_rule({ match = { class = "solaar" }, workspace = "8 silent" })
       hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
-      hl.window_rule({ match = { class = "thunderbird" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "signal" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "spotify" }, workspace = "0 silent" })
+      hl.window_rule({ match = { class = "brave" }, workspace = "6 silent" })
 
       -- Autostart
       hl.on("hyprland.start", function()
@@ -103,20 +100,26 @@
           hl.exec_cmd("sleep 2 && waybar > /tmp/waybar.log 2>&1 &")
           hl.exec_cmd("mako")
           hl.exec_cmd("blueman-applet")
-          hl.exec_cmd("solaar")
-          hl.exec_cmd("thunderbird")
           hl.exec_cmd("kitty")
-          hl.exec_cmd("1password")
           hl.exec_cmd("steam")
           hl.exec_cmd("discord")
           hl.exec_cmd("gamemoded")
           hl.exec_cmd("signal")
+          hl.exec_cmd("brave")
           hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
       end)
 
       -- Workspaces
-      hl.workspace_rule({ workspace = "1", monitor = "auto", default = true })
-      hl.workspace_rule({ workspace = "2", monitor = "auto", default = true })
+      hl.workspace_rule({ workspace = "0", monitor = "DP-1", default = true })
+      hl.workspace_rule({ workspace = "1", monitor = "DP-1", default = true })
+      hl.workspace_rule({ workspace = "2", monitor = "HDMI-A-1", default = true })
+      hl.workspace_rule({ workspace = "3", monitor = "DP-1", default = true })
+      hl.workspace_rule({ workspace = "4", monitor = "DP-1", default = true })
+      hl.workspace_rule({ workspace = "5", monitor = "HDMI-A-1", default = true })
+      hl.workspace_rule({ workspace = "6", monitor = "HDMI-A-1", default = true })
+      hl.workspace_rule({ workspace = "7", monitor = "HDMI-A-1", default = true })
+      hl.workspace_rule({ workspace = "8", monitor = "DP-1", default = true })
+      hl.workspace_rule({ workspace = "9", monitor = "HDMI-A-1", default = true })
 
       -- Binds
       hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
@@ -187,4 +190,3 @@
     '';
   };
 }
-

@@ -58,6 +58,12 @@ in
         se = "sudoedit";
 
         ff = "fastfetch";
+
+        #git magic
+        gst = "git status";
+        glg = "git log --stat";
+        gac = "git add . & git commit";
+        gps = "git push";
       };
 
     shellGlobalAliases = {

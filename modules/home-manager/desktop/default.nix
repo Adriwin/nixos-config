@@ -7,7 +7,6 @@
     ./mako.nix
     ./obs-studio.nix
     ./hyprpaper.nix
-    ./thunderbird.nix
     ./wireplumber.nix
   ];
 
