@@ -86,6 +86,9 @@
     packages = [ ];
   };
 
+  # Enable seatd for GPU handover
+  services.seatd.enable = true;
+
   # Enable the Flakes feature and the accompanying new nix command-line tool
   nix.settings.experimental-features = [
     "nix-command"
@@ -129,6 +132,7 @@
   };
 
   services.displayManager.sddm.enable = true;
+  services.displayManager.sddm.wayland.enable = true;
   # services.desktopManager.plasma6.enable = true;
 
   environment.sessionVariables = {
@@ -146,6 +150,7 @@
       "wheel"
       "adbusers"
       "bluetooth" # Required for Bluetooth audio transport access
+      "video" # Permission for acces to GPU nodes
     ];
     isNormalUser = true;
     shell = pkgs.zsh;

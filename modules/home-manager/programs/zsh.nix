@@ -182,7 +182,6 @@ in
             source ${zshInits.fzf}
 
             source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
-            [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
 
             ${
               if pkgs.stdenv.isDarwin then
@@ -199,6 +198,8 @@ in
       # Ensure PostgreSQL from Nix store comes before .nix-profile symlinks
       export PATH="${pkgs.postgresql_15}/bin:$PATH"
       export PGSHAREDIR="${pkgs.postgresql_15}/share/postgresql"
+
+      [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
     '';
     profileExtra =
       if pkgs.stdenv.isDarwin then

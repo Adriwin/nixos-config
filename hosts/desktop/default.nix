@@ -28,10 +28,10 @@
 
   # https://wiki.nixos.org/wiki/AMD_GPU
   hardware.amdgpu.initrd.enable = true;
-  boot.kernelParams = [
-    "video=HDMI-A-1:1920x1080@60"
-    "video=DP-1:1920x1080@60"
-  ];
+  #boot.kernelParams = [
+  #  "video=HDMI-A-1:1920x1080@60"
+  #  "video=DP-1:1920x1080@60"
+  #];
   boot.kernelModules = [
     "amdgpu"
     "kvm-amd"

@@ -158,8 +158,8 @@
       ];
 
       workspace = [
-        "1, monitor:HDMI-A-1, default::true"
-        "2, monitor:DP-1, default::true"
+        "1, monitor:auto, default::true"
+        "2, monitor:auto, default::true"
       ];
 
       bind = [
@@ -242,7 +242,7 @@
         ''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
         ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
         ''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/hyprland.nix"''
-        ''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/waybar.nix''
+        ''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/waybar.nix"''
 
         # Screenshot
         '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
