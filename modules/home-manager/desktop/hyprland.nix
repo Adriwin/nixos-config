@@ -6,261 +6,185 @@
     enable = true;
     xwayland.enable = true;
 
-    settings = {
-      "$mod" = "SUPER";
-      "$mainMod" = "SUPER";
+    extraConfig = ''
+      local mod = "SUPER"
+      local mainMod = "SUPER"
 
-      monitor = lib.mkDefault [ ];
+      hl.xwayland({
+          force_zero_scaling = true
+      })
 
-      xwayland = {
-        force_zero_scaling = 1;
-      };
+      hl.env("XDG_CURRENT_DESKTOP", "Hyprland")
+      hl.env("XDG_SESSION_TYPE", "wayland")
+      hl.env("XDG_SESSION_DESKTOP", "Hyprland")
+      hl.env("QT_QPA_PLATFORM", "wayland")
+      hl.env("XDG_SCREENSHOTS_DIR", "~/screens")
+      hl.env("GDK_DPI_SCALE", "1.2")
+      hl.env("GDK_SCALE", "1.2")
+      hl.env("XCURSOR_SIZE", "24")
+      hl.env("GRIMBLAST_HIDE_CURSOR", "0")
+      hl.env("QT_QPA_PLATFORMTHEME", "qt6ct")
 
-      env = [
-        "XDG_CURRENT_DESKTOP,Hyprland"
-        "XDG_SESSION_TYPE,wayland"
-        "XDG_SESSION_DESKTOP,Hyprland"
-        "QT_QPA_PLATFORM,wayland"
-        "XDG_SCREENSHOTS_DIR,~/screens"
-        "GDK_DPI_SCALE,1.2"
-        "GDK_SCALE,1.2"
-        "XCURSOR_SIZE,24"
-        "GRIMBLAST_HIDE_CURSOR,0"
-        "QT_QPA_PLATFORMTHEME,qt6ct"
-      ];
+      hl.config({
+          debug = {
+              disable_logs = false,
+              enable_stdout_logs = true,
+          },
+          input = {
+              kb_layout = "pl",
+              follow_mouse = 1,
+              touchpad = {
+                  natural_scroll = false,
+              },
+              sensitivity = 0,
+          },
+          general = {
+              gaps_in = 5,
+              gaps_out = 20,
+              border_size = 3,
+              col = {
+                  active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
+                  inactive_border = "rgba(595959aa)",
+              },
+              layout = "dwindle",
+          },
+          decoration = {
+              rounding = 10,
+              blur = {
+                  enabled = true,
+                  size = 16,
+                  passes = 2,
+                  new_optimizations = true,
+              },
+          },
+          dwindle = {
+              preserve_split = true,
+          },
+          gestures = {
+              workspace_swipe_invert = false,
+              workspace_swipe_distance = 200,
+              workspace_swipe_forever = true,
+          },
+          misc = {
+              animate_manual_resizes = true,
+              animate_mouse_windowdragging = true,
+              enable_swallow = true,
+              disable_hyprland_logo = true,
+          },
+      })
 
-      debug = {
-        disable_logs = false;
-        enable_stdout_logs = true;
-      };
+      -- Animations
+      hl.curve("myBezier", { type = "bezier", points = { { 0.05, 0.9 }, { 0.1, 1.05 } } })
+      hl.animation({ leaf = "windows", enabled = true, speed = 7, bezier = "myBezier" })
+      hl.animation({ leaf = "windowsOut", enabled = true, speed = 7, bezier = "default", style = "popin 80%" })
+      hl.animation({ leaf = "border", enabled = true, speed = 10, bezier = "default" })
+      hl.animation({ leaf = "borderangle", enabled = true, speed = 8, bezier = "default" })
+      hl.animation({ leaf = "fade", enabled = true, speed = 7, bezier = "default" })
+      hl.animation({ leaf = "workspaces", enabled = true, speed = 6, bezier = "default" })
 
-      input = {
-        kb_layout = "pl";
+      -- Window rules
+      hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol" }, float = true, center = true, pin = true })
+      hl.window_rule({ match = { class = ".blueman-manager-wrapped" }, float = true, center = true, pin = true })
+      hl.window_rule({ match = { class = "kitty" }, workspace = "1 silent" })
+      hl.window_rule({ match = { class = "steam" }, workspace = "7 silent" })
+      hl.window_rule({ match = { class = "1password" }, workspace = "8 silent" })
+      hl.window_rule({ match = { class = "solaar" }, workspace = "8 silent" })
+      hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
+      hl.window_rule({ match = { class = "thunderbird" }, workspace = "9 silent" })
+      hl.window_rule({ match = { class = "signal" }, workspace = "9 silent" })
+      hl.window_rule({ match = { class = "spotify" }, workspace = "0 silent" })
 
-        follow_mouse = 1;
+      -- Autostart
+      hl.on("hyprland.start", function()
+          hl.exec_cmd("wl-paste --type text --watch cliphist store")
+          hl.exec_cmd("wl-paste --type image --watch cliphist store")
+          hl.exec_cmd("systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+          hl.exec_cmd("dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP")
+          hl.exec_cmd("sleep 2 && waybar > /tmp/waybar.log 2>&1 &")
+          hl.exec_cmd("mako")
+          hl.exec_cmd("blueman-applet")
+          hl.exec_cmd("solaar")
+          hl.exec_cmd("thunderbird")
+          hl.exec_cmd("kitty")
+          hl.exec_cmd("1password")
+          hl.exec_cmd("steam")
+          hl.exec_cmd("discord")
+          hl.exec_cmd("gamemoded")
+          hl.exec_cmd("signal")
+          hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
+      end)
 
-        touchpad = {
-          natural_scroll = false;
-        };
+      -- Workspaces
+      hl.workspace_rule({ workspace = "1", monitor = "auto", default = true })
+      hl.workspace_rule({ workspace = "2", monitor = "auto", default = true })
 
-        sensitivity = 0; # -1.0 - 1.0, 0 means no modification.
-      };
+      -- Binds
+      hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
+      hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
+      hl.bind(mainMod .. " + Q", hl.dsp.window.close())
+      hl.bind(mainMod .. " + M", hl.dsp.exec_cmd("hyprctl dispatch exit"))
+      hl.bind(mainMod .. " + E", hl.dsp.exec_cmd("thunar"))
+      hl.bind(mainMod .. " + F", hl.dsp.window.float({ action = "toggle" }))
+      hl.bind(mainMod .. " + D", hl.dsp.exec_cmd("fuzzel --show drun"))
+      hl.bind(mainMod .. " + P", hl.dsp.window.pseudo())
+      hl.bind(mainMod .. " + J", hl.dsp.layout("togglesplit"))
+      hl.bind(mainMod .. " + L", hl.dsp.exec_cmd("hyprlock"))
 
-      general = {
-        gaps_in = 5;
-        gaps_out = 20;
-        border_size = 3;
-        "col.active_border" = "rgba(33ccffee) rgba(00ff99ee) 45deg";
-        "col.inactive_border" = "rgba(595959aa)";
+      hl.bind(mainMod .. " + left", hl.dsp.focus({ direction = "l" }))
+      hl.bind(mainMod .. " + right", hl.dsp.focus({ direction = "r" }))
+      hl.bind(mainMod .. " + up", hl.dsp.focus({ direction = "u" }))
+      hl.bind(mainMod .. " + down", hl.dsp.focus({ direction = "d" }))
 
-        layout = "dwindle";
-      };
+      hl.bind(mainMod .. " + SHIFT + left", hl.dsp.exec_cmd("hyprctl dispatch swapwindow l"))
+      hl.bind(mainMod .. " + SHIFT + right", hl.dsp.exec_cmd("hyprctl dispatch swapwindow r"))
+      hl.bind(mainMod .. " + SHIFT + up", hl.dsp.exec_cmd("hyprctl dispatch swapwindow u"))
+      hl.bind(mainMod .. " + SHIFT + down", hl.dsp.exec_cmd("hyprctl dispatch swapwindow d"))
 
-      decoration = {
-        rounding = 10;
+      hl.bind(mainMod .. " + CTRL + left", hl.dsp.window.resize({ x = -60, y = 0, relative = true }))
+      hl.bind(mainMod .. " + CTRL + right", hl.dsp.window.resize({ x = 60, y = 0, relative = true }))
+      hl.bind(mainMod .. " + CTRL + up", hl.dsp.window.resize({ x = 0, y = -60, relative = true }))
+      hl.bind(mainMod .. " + CTRL + down", hl.dsp.window.resize({ x = 0, y = 60, relative = true }))
 
-        blur = {
-          enabled = true;
-          size = 16;
-          passes = 2;
-          new_optimizations = true;
-        };
+      for i = 1, 9 do
+          hl.bind(mainMod .. " + " .. i, hl.dsp.focus({ workspace = tostring(i) }))
+          hl.bind(mainMod .. " + SHIFT + " .. i, hl.dsp.window.move({ workspace = tostring(i), follow = false }))
+      end
+      hl.bind(mainMod .. " + 0", hl.dsp.focus({ workspace = "10" }))
+      hl.bind(mainMod .. " + SHIFT + 0", hl.dsp.window.move({ workspace = "10", follow = false }))
 
-        # drop_shadow = true;
-        # shadow_range = 4;
-        # shadow_render_power = 3;
-        # "col.shadow" = "rgba(1a1a1aee)";
-      };
+      hl.bind(mainMod .. " + grave", hl.dsp.workspace.toggle_special(""))
+      hl.bind(mainMod .. " + SHIFT + grave", hl.dsp.window.move({ workspace = "special" }))
 
-      animations = {
-        enabled = true;
+      hl.bind(mainMod .. " + mouse_down", hl.dsp.focus({ workspace = "e+1" }))
+      hl.bind(mainMod .. " + mouse_up", hl.dsp.focus({ workspace = "e-1" }))
 
-        bezier = "myBezier, 0.05, 0.9, 0.1, 1.05";
-        # bezier = "myBezier, 0.33, 0.82, 0.9, -0.08";
+      hl.bind(mainMod .. " + F3", hl.dsp.exec_cmd("brightnessctl -d *::kbd_backlight set +33%"))
+      hl.bind(mainMod .. " + F2", hl.dsp.exec_cmd("brightnessctl -d *::kbd_backlight set 33%-"))
 
-        animation = [
-          "windows,     1, 7,  myBezier"
-          "windowsOut,  1, 7,  default, popin 80%"
-          "border,      1, 10, default"
-          "borderangle, 1, 8,  default"
-          "fade,        1, 7,  default"
-          "workspaces,  1, 6,  default"
-        ];
-      };
+      hl.bind("XF86AudioRaiseVolume", hl.dsp.exec_cmd("pamixer -i 5"))
+      hl.bind("XF86AudioLowerVolume", hl.dsp.exec_cmd("pamixer -d 5"))
+      hl.bind("XF86AudioMute", hl.dsp.exec_cmd("pamixer -t"))
+      hl.bind("XF86AudioMicMute", hl.dsp.exec_cmd("pamixer --default-source -t"))
 
-      dwindle = {
-        pseudotile = true; # master switch for pseudotiling. Enabling is bound to mainMod + P in the keybinds section below
-        preserve_split = true; # you probably want this
-      };
+      hl.bind("XF86MonBrightnessDown", hl.dsp.exec_cmd("brightnessctl set 5%-"))
+      hl.bind("XF86MonBrightnessUp", hl.dsp.exec_cmd("brightnessctl set +5%"))
 
-      gestures = {
-        # workspace_swipe = true;
-        # workspace_swipe_fingers = 3;
-        workspace_swipe_invert = false;
-        workspace_swipe_distance = 200;
-        workspace_swipe_forever = true;
-      };
+      hl.bind(mainMod .. " + SHIFT + N", hl.dsp.exec_cmd([[alacritty -e sh -c "rb"]]))
+      hl.bind(mainMod .. " + SHIFT + C", hl.dsp.exec_cmd([[alacritty -e sh -c "conf"]]))
+      hl.bind(mainMod .. " + SHIFT + H", hl.dsp.exec_cmd([[alacritty -e sh -c "nvim ~/nix/home-manager/modules/hyprland.nix"]]))
+      hl.bind(mainMod .. " + SHIFT + W", hl.dsp.exec_cmd([[alacritty -e sh -c "nvim ~/nix/home-manager/modules/waybar.nix"]]))
 
-      misc = {
-        animate_manual_resizes = true;
-        animate_mouse_windowdragging = true;
-        enable_swallow = true;
-        # render_ahead_of_time = false;
-        disable_hyprland_logo = true;
-      };
+      hl.bind("Print", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | swappy -f -]]))
+      hl.bind(mainMod .. " + SHIFT + S", hl.dsp.exec_cmd([[grim -g "$(slurp)" - | swappy -f -]]))
 
-      windowrulev2 = [
-        # Floating windows
-        "float, center, pin, class:(org.pulseaudio.pavucontrol)"
-        "float, center, pin, class:(.blueman-manager-wrapped)"
+      hl.bind(mainMod .. " + B", hl.dsp.exec_cmd("pkill -SIGUSR1 waybar"))
+      hl.bind(mainMod .. " + W", hl.dsp.exec_cmd("pkill -SIGUSR2 waybar"))
 
-        "workspace 1 silent, class:(kitty)"
+      hl.bind(mainMod .. " + SHIFT + G", hl.dsp.exec_cmd("~/.config/hypr/gamemode.sh"))
 
-        "workspace 7 silent, class:(steam)"
-
-        "workspace 8 silent, class:(1password)"
-        "workspace 8 silent, class:(solaar)"
-
-        "workspace 9 silent, class:(discord)"
-        "workspace 9 silent, class:(thunderbird)"
-        "workspace 9 silent, class:(signal)"
-
-        "workspace 0 silent, class:(spotify)"
-      ];
-
-      exec-once = [
-        # Clipboard
-        "wl-paste --type text --watch cliphist store"
-        "wl-paste --type image --watch cliphist store"
-
-        # Screen Sharing
-        "systemctl --user import-environment WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-        "dbus-update-activation-environment --systemd WAYLAND_DISPLAY XDG_CURRENT_DESKTOP"
-
-        # Waybar
-        "sleep 2 && waybar > /tmp/waybar.log 2>&1 &"
-
-        # Notification daemon
-        "mako"
-
-        # Autostart GUI apps
-        "blueman-applet"
-        "solaar"
-        "thunderbird"
-        "kitty"
-        "1password"
-        "steam"
-        "discord"
-        "gamemoded"
-        "signal"
-
-        "gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'"
-      ];
-
-      workspace = [
-        "1, monitor:auto, default:true"
-        "2, monitor:auto, default:true"
-      ];
-
-      bind = [
-        "$mainMod, V, exec, cliphist list | wofi --dmenu | cliphist decode | wl-copy"
-
-        "$mainMod, Return, exec, kitty"
-        "$mainMod, Q, killactive,"
-        "$mainMod, M, exit,"
-        "$mainMod, E, exec, thunar"
-        "$mainMod, F, togglefloating,"
-        "$mainMod, D, exec, fuzzel --show drun"
-        "$mainMod, P, pseudo, # dwindle"
-        "$mainMod, J, togglesplit, # dwindle"
-        "$mainMod, L, exec, hyprlock"
-
-        # Move focus with mainMod + arrow keys
-        "$mainMod, left,  movefocus, l"
-        "$mainMod, right, movefocus, r"
-        "$mainMod, up,    movefocus, u"
-        "$mainMod, down,  movefocus, d"
-
-        # Moving windows
-        "$mainMod SHIFT, left,  swapwindow, l"
-        "$mainMod SHIFT, right, swapwindow, r"
-        "$mainMod SHIFT, up,    swapwindow, u"
-        "$mainMod SHIFT, down,  swapwindow, d"
-
-        # Window resizing                     X  Y
-        "$mainMod CTRL, left,  resizeactive, -60 0"
-        "$mainMod CTRL, right, resizeactive,  60 0"
-        "$mainMod CTRL, up,    resizeactive,  0 -60"
-        "$mainMod CTRL, down,  resizeactive,  0  60"
-
-        # Switch workspaces with mainMod + [0-9]
-        "$mainMod, 1, workspace, 1"
-        "$mainMod, 2, workspace, 2"
-        "$mainMod, 3, workspace, 3"
-        "$mainMod, 4, workspace, 4"
-        "$mainMod, 5, workspace, 5"
-        "$mainMod, 6, workspace, 6"
-        "$mainMod, 7, workspace, 7"
-        "$mainMod, 8, workspace, 8"
-        "$mainMod, 9, workspace, 9"
-        "$mainMod, 0, workspace, 10"
-        "$mainMod, `, workspace, special"
-
-        # Move active window to a workspace with mainMod + SHIFT + [0-9]
-        "$mainMod SHIFT, 1, movetoworkspacesilent, 1"
-        "$mainMod SHIFT, 2, movetoworkspacesilent, 2"
-        "$mainMod SHIFT, 3, movetoworkspacesilent, 3"
-        "$mainMod SHIFT, 4, movetoworkspacesilent, 4"
-        "$mainMod SHIFT, 5, movetoworkspacesilent, 5"
-        "$mainMod SHIFT, 6, movetoworkspacesilent, 6"
-        "$mainMod SHIFT, 7, movetoworkspacesilent, 7"
-        "$mainMod SHIFT, 8, movetoworkspacesilent, 8"
-        "$mainMod SHIFT, 9, movetoworkspacesilent, 9"
-        "$mainMod SHIFT, 0, movetoworkspacesilent, 10"
-
-        "$mainMod SHIFT, `, movetoworkspace, special"
-
-        # Scroll through existing workspaces with mainMod + scroll
-        "$mainMod, mouse_down, workspace, e+1"
-        "$mainMod, mouse_up, workspace, e-1"
-
-        # Keyboard backlight
-        "$mainMod, F3, exec, brightnessctl -d *::kbd_backlight set +33%"
-        "$mainMod, F2, exec, brightnessctl -d *::kbd_backlight set 33%-"
-
-        # Volume and Media Control
-        ", XF86AudioRaiseVolume, exec, pamixer -i 5 "
-        ", XF86AudioLowerVolume, exec, pamixer -d 5 "
-        ", XF86AudioMute, exec, pamixer -t"
-        ", XF86AudioMicMute, exec, pamixer --default-source -t"
-
-        # Brightness control
-        ", XF86MonBrightnessDown, exec, brightnessctl set 5%- "
-        ", XF86MonBrightnessUp, exec, brightnessctl set +5% "
-
-        # Configuration files
-        ''$mainMod SHIFT, N, exec, alacritty -e sh -c "rb"''
-        ''$mainMod SHIFT, C, exec, alacritty -e sh -c "conf"''
-        ''$mainMod SHIFT, H, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/hyprland.nix"''
-        ''$mainMod SHIFT, W, exec, alacritty -e sh -c "nvim ~/nix/home-manager/modules/waybar.nix"''
-
-        # Screenshot
-        '', Print, exec, grim -g "$(slurp)" - | swappy -f -''
-        ''$mainMod SHIFT, S, exec, grim -g "$(slurp)" - | swappy -f -''
-
-        # Waybar
-        "$mainMod, B, exec, pkill -SIGUSR1 waybar"
-        "$mainMod, W, exec, pkill -SIGUSR2 waybar"
-
-        # Disable all effects
-        "$mainMod Shift, G, exec, ~/.config/hypr/gamemode.sh "
-      ];
-
-      # Move/resize windows with mainMod + LMB/RMB and dragging
-      bindm = [
-        "$mainMod, mouse:272, movewindow"
-        "$mainMod, mouse:273, resizewindow"
-      ];
-    };
+      hl.bind(mainMod .. " + mouse:272", hl.dsp.window.drag(), { mouse = true })
+      hl.bind(mainMod .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
+    '';
   };
 }
+

@@ -15,9 +15,14 @@
   # Do NOT change this on upgrades. See: https://nixos.wiki/wiki/FAQ/When_do_I_update_stateVersion
   home.stateVersion = "26.05";
 
-  wayland.windowManager.hyprland.settings.monitor = [
-    ",preferred,auto,auto"
-  ];
+  wayland.windowManager.hyprland.extraConfig = ''
+    hl.monitor({
+      output = "",
+      mode = "preferred",
+      position = "auto",
+      scale = "auto",
+    })
+  '';
 
   #services.hyprpaper.settings.wallpaper = [
   #  "HDMI-A-1,~/.config/wallpapers/default.jpg"
