@@ -17,17 +17,17 @@
 
   wayland.windowManager.hyprland.extraConfig = ''
     hl.monitor({
-      output = "",
-      mode = "preferred",
-      position = "auto",
-      scale = "auto",
+      output = "DP-1",
+      mode = "1920x1080@60",
+      position = "0x0",
+      scale = "1",
     })
   '';
 
-  #services.hyprpaper.settings.wallpaper = [
-  #  "HDMI-A-1,~/.config/wallpapers/default.jpg"
-  #  "DP-1,~/.config/wallpapers/default.jpg"
-  #];
+  services.hyprpaper.settings.wallpaper = [
+    "DP-1,~/.config/wallpapers/default.jpg"
+    "HDMI-A-1,~/.config/wallpapers/default.jpg"
+  ];
 
   home.file.zellij-layout.source = config.lib.file.mkOutOfStoreSymlink ./zellij-layout.kdl;
   home.file.zellij-layout.target = "./default.kdl";
