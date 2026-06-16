@@ -152,6 +152,7 @@
       "adbusers"
       "bluetooth" # Required for Bluetooth audio transport access
       "video" # Permission for acces to GPU nodes
+      "audio"
     ];
     isNormalUser = true;
     shell = pkgs.zsh;

@@ -75,6 +75,7 @@
     # Sound
     pamixer
     playerctl
+    easyeffects
 
     # xdg-desktop-portal-hyprland dependencies just to be sure
     libdrm

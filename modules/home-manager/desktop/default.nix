@@ -8,9 +8,11 @@
     ./obs-studio.nix
     ./hyprpaper.nix
     ./wireplumber.nix
+    ./easyeffects.nix
   ];
 
   dconf = {
+    enable = true;
     settings = {
       "org/gnome/desktop/interface" = {
         gtk-theme = "gruvbox-dark";
