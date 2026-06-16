@@ -85,11 +85,10 @@
       hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol" }, float = true, center = true, pin = true })
       hl.window_rule({ match = { class = ".blueman-manager-wrapped" }, float = true, center = true, pin = true })
       hl.window_rule({ match = { class = "kitty" }, workspace = "1 silent" })
-      hl.window_rule({ match = { class = "steam" }, workspace = "7 silent" })
+      hl.window_rule({ match = { class = "steam" }, workspace = "8 silent" })
       hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "signal-desktop" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "spotify" }, workspace = "0 silent" })
-      hl.window_rule({ match = { class = "brave" }, workspace = "6 silent" })
 
       -- Autostart
       hl.on("hyprland.start", function()
@@ -101,11 +100,12 @@
           hl.exec_cmd("mako")
           hl.exec_cmd("blueman-applet")
           
-          hl.exec_cmd("setpriv --ambient-caps -all steam -silent", { workspace = "7 silent" })
+          hl.exec_cmd("setpriv --ambient-caps -all steam -silent", { workspace = "8 silent" })
           hl.exec_cmd("setpriv --ambient-caps -all signal-desktop", { workspace = "9 silent" })
           hl.exec_cmd("setpriv --ambient-caps -all spotify", { workspace = "0 silent" })
           
           hl.exec_cmd("brave", { workspace = "6 silent" })
+          hl.exec_cmd("brave --user-data-dir=$HOME/.config/BraveSoftware/Brave-Browser-Media", { workspace = "7 silent" })
           hl.exec_cmd("discord", { workspace = "9 silent" })
           hl.exec_cmd("kitty", { workspace = "1 silent" })
           

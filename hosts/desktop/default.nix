@@ -28,6 +28,8 @@
 
   # https://wiki.nixos.org/wiki/AMD_GPU
   hardware.amdgpu.initrd.enable = true;
+  # Enable amd overclocking
+  hardware.amdgpu.overdrive.enable = true;
   #boot.kernelParams = [
   #  "video=HDMI-A-1:1920x1080@60"
   #  "video=DP-1:1920x1080@60"
