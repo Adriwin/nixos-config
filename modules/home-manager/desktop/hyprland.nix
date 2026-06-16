@@ -87,7 +87,7 @@
       hl.window_rule({ match = { class = "kitty" }, workspace = "1 silent" })
       hl.window_rule({ match = { class = "steam" }, workspace = "7 silent" })
       hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
-      hl.window_rule({ match = { class = "signal" }, workspace = "9 silent" })
+      hl.window_rule({ match = { class = "signal-desktop" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "spotify" }, workspace = "0 silent" })
       hl.window_rule({ match = { class = "brave" }, workspace = "6 silent" })
 
@@ -100,12 +100,16 @@
           hl.exec_cmd("sleep 2 && waybar > /tmp/waybar.log 2>&1 &")
           hl.exec_cmd("mako")
           hl.exec_cmd("blueman-applet")
-          hl.exec_cmd("kitty")
-          hl.exec_cmd("steam")
-          hl.exec_cmd("discord")
+          
+          hl.exec_cmd("setpriv --ambient-caps -all steam -silent", { workspace = "7 silent" })
+          hl.exec_cmd("setpriv --ambient-caps -all signal-desktop", { workspace = "9 silent" })
+          hl.exec_cmd("setpriv --ambient-caps -all spotify", { workspace = "0 silent" })
+          
+          hl.exec_cmd("brave", { workspace = "6 silent" })
+          hl.exec_cmd("discord", { workspace = "9 silent" })
+          hl.exec_cmd("kitty", { workspace = "1 silent" })
+          
           hl.exec_cmd("gamemoded")
-          hl.exec_cmd("signal")
-          hl.exec_cmd("brave")
           hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
       end)
 

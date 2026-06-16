@@ -14,7 +14,7 @@
   services.blueman.enable = true;
 
   ## Hyprland
-  # Install hyperland
+  # Install hyprland
   programs.hyprland = {
     enable = true;
   };
@@ -30,12 +30,4 @@
   };
 
   services.flatpak.enable = true;
-
-  environment.variables = {
-    XDG_CURRENT_DESKTOP = "Hyprland";
-    XDG_SESSION_TYPE = "wayland";
-    XDG_SESSION_DESKTOP = "Hyprland";
-    # XDG_DATA_HOME = "$HOME/.local/share:/root/.local/share:/usr/local/share/:/usr/share/";
-    # XDG_DATA_DIRS = "$HOME/.local/share:/root/.local/share:/usr/local/share/:/usr/share/";
-  };
 }
