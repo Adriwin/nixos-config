@@ -9,6 +9,7 @@
     ./hyprpaper.nix
     ./wireplumber.nix
     ./easyeffects.nix
+    ./usb.nix
   ];
 
   dconf = {
