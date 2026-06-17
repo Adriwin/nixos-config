@@ -5,7 +5,7 @@
     border: none;
     border-radius: 12px;
     font-family: "Maple Mono NF", "Maple Mono NF Light", "Maple Mono NF Medium", "Maple Mono NF Bold", "Font Awesome 6 Free", sans-serif;
-    font-size: 16px;
+    font-size: 12px;
     min-height: 0;
 }
 
@@ -186,7 +186,7 @@ tooltip {
     border-radius: 8px;
     padding: 8px 12px;
     font-family: "Maple Mono NF", sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     color: #cdd6f4;
 }
 
