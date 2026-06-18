@@ -111,6 +111,7 @@
           
           hl.exec_cmd("gamemoded")
           hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
+          hl.exec_cmd("openrgb --startminimized --profile 'Bloody'")
       end)
 
       -- Workspaces
