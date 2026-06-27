@@ -35,7 +35,7 @@
       mode = "1920x1080@144",
       position = "3840x0",
       scale = 1,
-      transform = 1,
+      transform = 3,
     })
   '';
 

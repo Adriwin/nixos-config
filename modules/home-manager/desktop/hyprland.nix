@@ -129,6 +129,12 @@
       hl.workspace_rule({ workspace = "8", monitor = "DP-2", default = true })
       hl.workspace_rule({ workspace = "9", monitor = "DP-3", default = true })
 
+      hl.workspace({
+        workspace = "4",
+        monitor = "DP-1",
+        default = true,
+      })
+
       -- Binds
       hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
       hl.bind(mainMod .. " + Return", hl.dsp.exec_cmd("kitty"))
