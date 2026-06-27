@@ -88,7 +88,9 @@
       hl.window_rule({ match = { class = "steam" }, workspace = "8 silent" })
       hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "signal-desktop" }, workspace = "9 silent" })
-      hl.window_rule({ match = { class = "spotify" }, workspace = "0 silent" })
+      hl.window_rule({ match = { class = "spotify" }, workspace = "10 silent" })
+      hl.window_rule({ match = { class = "brave-main" }, workspace = "6 silent" })
+      hl.window_rule({ match = { class = "brave-media" }, workspace = "7 silent" })
 
       -- Autostart
       hl.on("hyprland.start", function()
@@ -102,15 +104,15 @@
           
           hl.exec_cmd("setpriv --ambient-caps -all steam", { workspace = "8 silent" })
           hl.exec_cmd("setpriv --ambient-caps -all signal-desktop", { workspace = "9 silent" })
-          hl.exec_cmd("setpriv --ambient-caps -all spotify", { workspace = "0 silent" })
+          hl.exec_cmd("setpriv --ambient-caps -all spotify", { workspace = "10 silent" })
           
-          hl.exec_cmd("brave", { workspace = "6 silent" })
-          hl.exec_cmd("brave --user-data-dir=$HOME/.config/BraveSoftware/Brave-Browser-Media", { workspace = "7 silent" })
+          hl.exec_cmd([[brave --class=brave-main]], { workspace = "6 silent" })
+          hl.exec_cmd([[brave --user-data-dir=$HOME/.config/BraveSoftware/Brave-Browser-Media --class=brave-media]], { workspace = "7 silent" })
           hl.exec_cmd("discord", { workspace = "9 silent" })
-          hl.exec_cmd("kitty", { workspace = "3 silent" })
-          hl.exec_cmd("kitty", { workspace = "3 silent" })
-          hl.exec_cmd("kitty", { workspace = "3 silent" })
-          hl.exec_cmd("kitty", { workspace = "3 silent" })
+          hl.exec_cmd("kitty", { workspace = "2 silent" })
+          hl.exec_cmd("kitty", { workspace = "2 silent" })
+          hl.exec_cmd("kitty", { workspace = "2 silent" })
+          hl.exec_cmd("kitty", { workspace = "2 silent" })
           
           hl.exec_cmd("gamemoded")
           hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
@@ -118,16 +120,16 @@
       end)
 
       -- Workspaces
-      hl.workspace_rule({ workspace = "0", monitor = "DP-2", default = true })
-      hl.workspace_rule({ workspace = "1", monitor = "DP-2", default = true })
-      hl.workspace_rule({ workspace = "2", monitor = "DP-3", default = true })
-      hl.workspace_rule({ workspace = "3", monitor = "DP-2", default = true })
+      hl.workspace_rule({ workspace = "1", monitor = "DP-2" })
+      hl.workspace_rule({ workspace = "2", monitor = "DP-3" })
+      hl.workspace_rule({ workspace = "3", monitor = "DP-2" })
       hl.workspace_rule({ workspace = "4", monitor = "DP-1", default = true })
-      hl.workspace_rule({ workspace = "5", monitor = "DP-1", default = true })
-      hl.workspace_rule({ workspace = "6", monitor = "DP-1", default = true })
-      hl.workspace_rule({ workspace = "7", monitor = "DP-1", default = true })
-      hl.workspace_rule({ workspace = "8", monitor = "DP-2", default = true })
-      hl.workspace_rule({ workspace = "9", monitor = "DP-3", default = true })
+      hl.workspace_rule({ workspace = "5", monitor = "DP-1" })
+      hl.workspace_rule({ workspace = "6", monitor = "DP-1" })
+      hl.workspace_rule({ workspace = "7", monitor = "DP-1" })
+      hl.workspace_rule({ workspace = "8", monitor = "DP-2" })
+      hl.workspace_rule({ workspace = "9", monitor = "DP-3" })
+      hl.workspace_rule({ workspace = "10", monitor = "DP-2" })
 
       -- Binds
       hl.bind(mainMod .. " + V", hl.dsp.exec_cmd("cliphist list | wofi --dmenu | cliphist decode | wl-copy"))
