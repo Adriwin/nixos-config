@@ -64,7 +64,6 @@ layout {
         nvim size="80%" {
           focus true
         }
-
         pane split_direction="vertical" {
           pane
           pane
@@ -78,7 +77,6 @@ layout {
       plugin location="zellij:status-bar"
     }
   }
-
   tab_template name="project-view-with-claude" {
     pane size=1 borderless=true {
       plugin location="zellij:tab-bar"
@@ -88,7 +86,6 @@ layout {
         nvim size="80%" {
           focus true
         }
-
         pane split_direction="vertical" {
           pane
           pane
@@ -102,11 +99,9 @@ layout {
       plugin location="zellij:status-bar"
     }
   }
-
   // =========================================
   // Tabs
   // =========================================
-
   // Playground 
   tab name="Playground" cwd="~" split_direction="vertical" {
     pane
@@ -115,18 +110,12 @@ layout {
       pane
     }
   }
-
   // Dotfiles
-  tab name="nixos-config (root)" cwd="~/nixos-config" split_direction="vertical" {
+  tab name="nixos-config (root)" cwd="~/nixos-config" {
     pane command="nvim" {
       focus true
     }
-    pane size="25%" split_direction="horizontal" {
-      pane
-      pane
-    }
   }
-
   // Resources
   tab name="Resources" {
     pane command="btop" {

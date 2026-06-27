@@ -1,11 +1,8 @@
-{ home, lib, ... }:
-
 {
   programs.kitty.enable = true;
   wayland.windowManager.hyprland = {
     enable = true;
     xwayland.enable = true;
-
     extraConfig = ''
       local mod = "SUPER"
       local mainMod = "SUPER"
@@ -84,13 +81,19 @@
       -- Window rules
       hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol" }, float = true, center = true, pin = true })
       hl.window_rule({ match = { class = ".blueman-manager-wrapped" }, float = true, center = true, pin = true })
-      hl.window_rule({ match = { class = "kitty" }, workspace = "1 silent" })
       hl.window_rule({ match = { class = "steam" }, workspace = "8 silent" })
       hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "signal-desktop" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "spotify" }, workspace = "10 silent" })
       hl.window_rule({ match = { class = "brave-main" }, workspace = "6 silent" })
       hl.window_rule({ match = { class = "brave-media" }, workspace = "7 silent" })
+
+      -- Kitty window rules
+      hl.window_rule({ match = { class = "kitty", title = "kitty-zd" }, workspace = "1 silent" })
+      hl.window_rule({ match = { class = "kitty", title = "kitty-grid-1" }, workspace = "2 silent" })
+      hl.window_rule({ match = { class = "kitty", title = "kitty-grid-2" }, workspace = "2 silent" })
+      hl.window_rule({ match = { class = "kitty", title = "kitty-grid-3" }, workspace = "2 silent" })
+      hl.window_rule({ match = { class = "kitty", title = "kitty-grid-4" }, workspace = "2 silent" })
 
       -- Autostart
       hl.on("hyprland.start", function()
@@ -109,10 +112,13 @@
           hl.exec_cmd([[brave --class=brave-main]], { workspace = "6 silent" })
           hl.exec_cmd([[brave --user-data-dir=$HOME/.config/BraveSoftware/Brave-Browser-Media --class=brave-media]], { workspace = "7 silent" })
           hl.exec_cmd("discord", { workspace = "9 silent" })
-          hl.exec_cmd("kitty", { workspace = "2 silent" })
-          hl.exec_cmd("kitty", { workspace = "2 silent" })
-          hl.exec_cmd("kitty", { workspace = "2 silent" })
-          hl.exec_cmd("kitty", { workspace = "2 silent" })
+          
+          -- Kitty
+          hl.exec_cmd([[kitty --title kitty-zd zsh -ic "zd; exec zsh"]], { workspace = "1 silent" })
+          hl.exec_cmd("kitty --title kitty-grid-1", { workspace = "2 silent" })
+          hl.exec_cmd("kitty --title kitty-grid-2", { workspace = "2 silent" })
+          hl.exec_cmd("kitty --title kitty-grid-3", { workspace = "2 silent" })
+          hl.exec_cmd("kitty --title kitty-grid-4", { workspace = "2 silent" })
           
           hl.exec_cmd("gamemoded")
           hl.exec_cmd("gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'")
