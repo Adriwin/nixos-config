@@ -18,14 +18,31 @@
   wayland.windowManager.hyprland.extraConfig = ''
     hl.monitor({
       output = "DP-1",
-      mode = "1920x1080@60",
+      mode = "1920x1080@144",
       position = "0x0",
-      scale = "1",
+      scale = 1,
+    })
+
+    hl.monitor({
+      output = "DP-2",
+      mode = "1920x1080@144",
+      position = "1920x0",
+      scale = 1,
+    })
+
+    hl.monitor({
+      output = "DP-3",
+      mode = "1920x1080@144",
+      position = "3840x0",
+      scale = 1,
+      transform = 1,
     })
   '';
 
   services.hyprpaper.settings.wallpaper = [
     "DP-1,~/.config/wallpapers/default.jpg"
+    "DP-2,~/.config/wallpapers/default.jpg"
+    "DP-3,~/.config/wallpapers/default.jpg"
   ];
 
   home.file.zellij-layout.source = config.lib.file.mkOutOfStoreSymlink ./zellij-layout.kdl;

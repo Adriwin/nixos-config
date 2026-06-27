@@ -30,9 +30,13 @@
   hardware.amdgpu.initrd.enable = true;
   # Enable amd overclocking
   hardware.amdgpu.overdrive.enable = true;
-  #boot.kernelParams = [
-  #  "video=DP-1:1920x1080@60"
-  #];
+
+  boot.kernelParams = [
+    "video=DP-1:1920x1080@144"
+    "video=DP-2:1920x1080@144"
+    "video=DP-3:1920x1080@144,rotate=90"
+  ];
+
   boot.kernelModules = [
     "amdgpu"
     "kvm-amd"
