@@ -31,7 +31,6 @@
   # Enable amd overclocking
   hardware.amdgpu.overdrive.enable = true;
   #boot.kernelParams = [
-  #  "video=HDMI-A-1:1920x1080@60"
   #  "video=DP-1:1920x1080@60"
   #];
   boot.kernelModules = [

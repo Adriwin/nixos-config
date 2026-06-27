@@ -26,7 +26,6 @@
 
   services.hyprpaper.settings.wallpaper = [
     "DP-1,~/.config/wallpapers/default.jpg"
-    "HDMI-A-1,~/.config/wallpapers/default.jpg"
   ];
 
   home.file.zellij-layout.source = config.lib.file.mkOutOfStoreSymlink ./zellij-layout.kdl;
