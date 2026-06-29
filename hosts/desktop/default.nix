@@ -43,8 +43,18 @@
   ];
   boot.blacklistedKernelModules = [ "radeon" ];
 
-  # Lact
-  environment.systemPackages = with pkgs; [ lact ];
+  environment.systemPackages = with pkgs; [
+    lact
+    # For Movie Battles 2
+    dotnet-sdk_6
+  ];
+  nixpkgs.config.permittedInsecurePackages = [
+    "dotnet-sdk-6.0.428"
+  ];
+  environment.sessionVariables = {
+    DOTNET_ROOT = "${pkgs.dotnet-sdk_6}/share/dotnet";
+  };
+
   systemd.packages = with pkgs; [ lact ];
   systemd.services.lactd.wantedBy = [ "multi-user.target" ];
   services.lact.enable = true;

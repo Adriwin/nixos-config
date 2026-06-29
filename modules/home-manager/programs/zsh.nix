@@ -119,6 +119,7 @@ in
 
     # Loaded first
     envExtra = ''
+            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
             export FZF_DEFAULT_OPTS=" \
       --color=bg+:#313244,bg:-1,spinner:#F5E0DC,hl:#F38BA8 \
       --color=fg:#CDD6F4,header:#F38BA8,info:#CBA6F7,pointer:#F5E0DC \
@@ -186,8 +187,6 @@ in
             source ${zshInits.zoxide}
             source ${zshInits.direnv}
             source ${zshInits.fzf}
-
-            source ${pkgs.zsh-powerlevel10k}/share/zsh-powerlevel10k/powerlevel10k.zsh-theme
 
             ${
               if pkgs.stdenv.isDarwin then

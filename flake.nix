@@ -37,13 +37,13 @@
       inherit (self) outputs;
 
       users = {
-	adriwin = {        
+        adriwin = {
           avatar = ./files/avatar/face.jpg;
           email = "grzegorzpietrucha15@gmail.com";
           fullName = "Grzegorz Pietrucha";
           name = "adriwin";
         };
-	work = {
+        work = {
           inherit (users.adriwin) avatar fullName;
           email = "grzegorz.pietrucha@iqvia.com";
           name = "grzegorz.pietrucha@iqvia.com"; # OS username stays the same
