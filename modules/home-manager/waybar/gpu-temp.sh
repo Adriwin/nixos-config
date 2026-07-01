@@ -1,8 +1,8 @@
 #!/usr/bin/env sh
-# GPU temperature widget for waybar (AMD GPU)
+# GPU temperature widget for waybar (AMD GPU edge)
 set +e
 
-TEMP_FILE="/sys/class/hwmon/hwmon0/temp1_input"
+TEMP_FILE="/sys/class/hwmon/hwmon1/temp1_input"
 
 if [ ! -f "$TEMP_FILE" ]; then
   echo ""
