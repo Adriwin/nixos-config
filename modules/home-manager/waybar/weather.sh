@@ -8,7 +8,7 @@ if ! command -v curl >/dev/null 2>&1; then
 fi
 
 # Fetch weather data with timeout
-weather=$(curl -s --max-time 5 'wttr.in?format=%c+%t' 2>/dev/null)
+weather=$(curl -s --max-time 5 'wttr.in/Gdansk?format=%c+%t' 2>/dev/null)
 
 # Check if we got valid data (should contain temperature or emoji)
 if [ -z "$weather" ] || [ "$weather" = "Unknown location" ]; then
