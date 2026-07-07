@@ -9,7 +9,7 @@
     enable = true;
     extraPackages = with pkgs; [
       # Nix
-      nixfmt-rfc-style
+      nixfmt
       nixd
       nil
       # LazyVim
@@ -55,7 +55,7 @@
       lazy-nvim
     ];
 
-    extraLuaConfig =
+    initLua =
       let
         plugins = with pkgs.vimPlugins; [
           # LazyVim
@@ -85,7 +85,7 @@
           nvim-notify
           markdown-preview-nvim
           # nvim-spectre
-          nvim-treesitter
+          nvim-treesitter-legacy
           nvim-treesitter-context
           nvim-treesitter-textobjects
           nvim-treesitter-pairs
@@ -172,6 +172,7 @@
             { import = "plugins" },
             -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
             { "nvim-treesitter/nvim-treesitter",
+              branch = "master"
               opts = function(_, opts)
                 opts.ensure_installed = {}
               end,
@@ -187,7 +188,7 @@
       parsers = pkgs.symlinkJoin {
         name = "treesitter-parsers";
         paths =
-          (pkgs.vimPlugins.nvim-treesitter.withPlugins (
+          (pkgs.vimPlugins.nvim-treesitter-legacy.withPlugins (
             plugins: with plugins; [
               c
               lua

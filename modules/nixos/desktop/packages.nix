@@ -12,8 +12,8 @@
     gparted
     vscode
     brave
-    xfce.thunar
-    xfce.xfce4-pulseaudio-plugin
+    thunar
+    xfce4-pulseaudio-plugin
     libreoffice-qt
     hunspell
     spotify

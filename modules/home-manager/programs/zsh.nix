@@ -198,13 +198,12 @@ in
                   export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock
                 ''
             }
-    '';
-    initExtra = ''
-      # Ensure PostgreSQL from Nix store comes before .nix-profile symlinks
-      export PATH="${pkgs.postgresql_15}/bin:$PATH"
-      export PGSHAREDIR="${pkgs.postgresql_15}/share/postgresql"
+            
+            # Ensure PostgreSQL from Nix store comes before .nix-profile symlinks
+            export PATH="${pkgs.postgresql_15}/bin:$PATH"
+            export PGSHAREDIR="${pkgs.postgresql_15}/share/postgresql"
 
-      [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
+            [[ -f ~/.p10k.zsh ]] && source ~/.p10k.zsh
     '';
     profileExtra =
       if pkgs.stdenv.isDarwin then
