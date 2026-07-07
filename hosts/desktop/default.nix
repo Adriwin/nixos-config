@@ -36,17 +36,16 @@
     "video=DP-2:1920x1080@144"
     "video=DP-3:1920x1080@144,rotate=90"
     # Control AMD CPU Power Management
-    "amd_pstate=guided"
+    # "active" gives full control of EPP (energy vs performance preference)
+    # to software, which auto-cpufreq needs to properly cool at idle and
+    # boost under load.
+    "amd_pstate=active"
   ];
 
   boot.kernelModules = [
     "amdgpu"
     "kvm-amd"
   ];
-
-  # AMD CPU PowerManagement
-  powerManagement.enable = true;
-  powerManagement.cpuFreqGovernor = "schedutil";
 
   boot.blacklistedKernelModules = [ "radeon" ];
 

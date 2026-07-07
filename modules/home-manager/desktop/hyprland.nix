@@ -82,11 +82,11 @@
       hl.window_rule({ match = { class = "org.pulseaudio.pavucontrol" }, float = true, center = true, pin = true })
       hl.window_rule({ match = { class = ".blueman-manager-wrapped" }, float = true, center = true, pin = true })
       hl.window_rule({ match = { class = "steam" }, workspace = "8 silent" })
-      hl.window_rule({ match = { class = "discord" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "signal-desktop" }, workspace = "9 silent" })
       hl.window_rule({ match = { class = "spotify" }, workspace = "10 silent" })
       hl.window_rule({ match = { class = "brave-main" }, workspace = "6 silent" })
       hl.window_rule({ match = { class = "brave-media" }, workspace = "7 silent" })
+      hl.window_rule({ match = { class = "brave-discord" }, workspace = "9 silent" })
 
       -- Kitty window rules
       hl.window_rule({ match = { class = "kitty", title = "kitty-zd" }, workspace = "1 silent" })
@@ -111,7 +111,7 @@
           
           hl.exec_cmd([[brave --class=brave-main]], { workspace = "6 silent" })
           hl.exec_cmd([[brave --user-data-dir=$HOME/.config/BraveSoftware/Brave-Browser-Media --class=brave-media]], { workspace = "7 silent" })
-          hl.exec_cmd("discord", { workspace = "9 silent" })
+          hl.exec_cmd([[brave --user-data-dir=$HOME/.config/BraveSoftware/Brave-Browser-Discord --class=brave-discord]], { workspace = "9 silent" })
           
           -- Kitty
           hl.exec_cmd([[kitty --title kitty-zd zsh -ic "zd; exec zsh"]], { workspace = "1 silent" })
