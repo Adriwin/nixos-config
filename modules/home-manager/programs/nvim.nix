@@ -85,10 +85,9 @@
           nvim-notify
           markdown-preview-nvim
           # nvim-spectre
-          nvim-treesitter-legacy
+          nvim-treesitter
           nvim-treesitter-context
           nvim-treesitter-textobjects
-          nvim-treesitter-pairs
           nvim-ts-autotag
           nvim-ts-context-commentstring
           nvim-web-devicons
@@ -149,7 +148,21 @@
         lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv plugins);
       in
       ''
+        -- Disable lazy.nvim's helptags generation.
+        -- Plugins come from the read-only Nix store (via linkFarm/dev.path),
+        -- so lazy.nvim can't write doc/tags into them, causing E152 errors.
+        local ok, docs_task = pcall(require, "lazy.manage.task.plugin")
+        if ok and docs_task.docs then
+          docs_task.docs = function() end
+        end
+
         require("lazy").setup({
+          readme = {
+            enabled = false,
+          },
+          install = {
+              missing = false,
+            },
           defaults = {
             lazy = true,
           },
@@ -172,7 +185,9 @@
             { import = "plugins" },
             -- treesitter handled by xdg.configFile."nvim/parser", put this line at the end of spec to clear ensure_installed
             { "nvim-treesitter/nvim-treesitter",
-              branch = "master"
+              branch = "master",
+              main = "nvim-treesitter",
+              build = false,
               opts = function(_, opts)
                 opts.ensure_installed = {}
               end,
@@ -188,7 +203,7 @@
       parsers = pkgs.symlinkJoin {
         name = "treesitter-parsers";
         paths =
-          (pkgs.vimPlugins.nvim-treesitter-legacy.withPlugins (
+          (pkgs.vimPlugins.nvim-treesitter.withPlugins (
             plugins: with plugins; [
               c
               lua
