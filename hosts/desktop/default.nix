@@ -45,6 +45,7 @@
   boot.kernelModules = [
     "amdgpu"
     "kvm-amd"
+    "ntsync"
   ];
 
   boot.blacklistedKernelModules = [ "radeon" ];

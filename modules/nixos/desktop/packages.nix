@@ -26,6 +26,7 @@
     # Gaming
     gamemode
     gamescope
+    mangohud
 
     # GUI utils
     feh
