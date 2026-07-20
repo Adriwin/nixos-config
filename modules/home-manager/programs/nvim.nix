@@ -49,6 +49,8 @@
       systemd-lsp
       # Terraform
       terraform-ls
+      # Git
+      git
     ];
 
     plugins = with pkgs.vimPlugins; [
@@ -135,6 +137,7 @@
             path = mini-nvim;
           }
           opencode-nvim
+          telescope-project-nvim
         ];
         mkEntryFromDrv =
           drv:
@@ -145,7 +148,19 @@
             }
           else
             drv;
-        lazyPath = pkgs.linkFarm "lazy-plugins" (builtins.map mkEntryFromDrv plugins);
+        ahmedkhalf-project-nvim = pkgs.vimUtils.buildVimPlugin {
+          pname = "project.nvim";
+          version = "unstable";
+          src = pkgs.fetchFromGitHub {
+            owner = "ahmedkhalf";
+            repo = "project.nvim";
+            rev = "main";
+            hash = "sha256-avV3wMiDbraxW4mqlEsKy0oeewaRj9Q33K8NzWoaptU=";
+          };
+        };
+        lazyPath = pkgs.linkFarm "lazy-plugins" (
+          builtins.map mkEntryFromDrv (plugins ++ [ ahmedkhalf-project-nvim ])
+        );
       in
       ''
         -- Disable lazy.nvim's helptags generation.

@@ -59,11 +59,14 @@ in
 
         ff = "fastfetch";
 
-        #git magic
+        # git magic
         gst = "git status";
         glg = "git log --stat";
-        gac = "git add . & git commit";
+        gac = "git add . && git commit";
         gps = "git push";
+
+        # mb2 update
+        mb2update = "cd /mnt/sdc/SteamLibrary/steamapps/common/Jedi Academy/GameData && dotnet MBII_CommandLine_Update_XPlatform.dll && cd ~";
       };
 
     shellGlobalAliases = {
