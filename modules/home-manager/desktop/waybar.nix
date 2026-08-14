@@ -11,11 +11,6 @@
     executable = true;
   };
 
-  xdg.configFile."waybar/disk-io.sh" = {
-    source = ../waybar/disk-io.sh;
-    executable = true;
-  };
-
   xdg.configFile."waybar/gpu-temp.sh" = {
     source = ../waybar/gpu-temp.sh;
     executable = true;
@@ -56,10 +51,6 @@
           "memory"
           "custom/gpu-temp"
           "temperature"
-
-          # Storage Group
-          "disk"
-          # "custom/disk-io"
 
           # Connectivity & Audio Group
           # "network"

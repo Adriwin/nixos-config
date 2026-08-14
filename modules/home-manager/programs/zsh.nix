@@ -67,6 +67,10 @@ in
 
         # mb2 update
         mb2update = "cd /mnt/sdc/SteamLibrary/steamapps/common/Jedi Academy/GameData && dotnet MBII_CommandLine_Update_XPlatform.dll && cd ~";
+
+        # cpu stuff
+        getcpufreq = ''nix shell nixpkgs#cpufrequtils --command watch -n 1 "cpufreq-info | grep 'current CPU frequency'"'';
+        gettemps = "nix shell nixpkgs#lm_sensors --command watch -n 1 sensors";
       };
 
     shellGlobalAliases = {
