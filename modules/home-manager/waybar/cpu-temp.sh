@@ -2,7 +2,7 @@
 # CPU temperature widget for waybar (AMD CPU Tctl)
 set +e
 
-TEMP_FILE="/sys/class/hwmon/hwmon2/temp1_input"
+TEMP_FILE="/sys/class/hwmon/hwmon7/temp1_input"
 
 if [ ! -f "$TEMP_FILE" ]; then
   echo ""
