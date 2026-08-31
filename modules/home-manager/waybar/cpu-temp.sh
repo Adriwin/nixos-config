@@ -2,7 +2,16 @@
 # CPU temperature widget for waybar (AMD CPU Tctl)
 set +e
 
-TEMP_FILE="/sys/class/hwmon/hwmon7/temp1_input"
+# Resolve the CPU hwmon device by name (coretemp / k10temp)
+HWMON_DIR=$(for d in /sys/class/hwmon/hwmon*/; do
+    name=$(cat "${d}name" 2>/dev/null)
+    if [[ "$name" == "coretemp" || "$name" == "k10temp" ]]; then
+        echo "${d}"
+        break
+    fi
+done)
+
+TEMP_FILE="${HWMON_DIR}temp1_input"
 
 if [ ! -f "$TEMP_FILE" ]; then
   echo ""

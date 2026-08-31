@@ -2,7 +2,16 @@
 # GPU temperature widget for waybar (AMD GPU edge)
 set +e
 
-TEMP_FILE="/sys/class/hwmon/hwmon1/temp1_input"
+# Resolve the GPU hwmon device by name (amdgpu / radeon)
+HWMON_DIR=$(for d in /sys/class/hwmon/hwmon*/; do
+    name=$(cat "${d}name" 2>/dev/null)
+    if [[ "$name" == "amdgpu" || "$name" == "radeon" ]]; then
+        echo "${d}"
+        break
+    fi
+done)
+
+TEMP_FILE="${HWMON_DIR}temp1_input"
 
 if [ ! -f "$TEMP_FILE" ]; then
   echo ""
