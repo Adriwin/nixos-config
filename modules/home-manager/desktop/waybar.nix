@@ -246,6 +246,7 @@
           escape = true;
           interval = 5;
           tooltip = false;
+          max-length = 20;
           exec = "playerctl metadata --format='{{ title }}'";
           on-click = "playerctl play-pause";
         };
