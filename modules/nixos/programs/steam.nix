@@ -4,6 +4,7 @@
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
+    dedicatedServer.openFirewall = true;
   };
 
   # Systemd user service that auto-configures Steam shader threads
