@@ -105,7 +105,7 @@
           hl.exec_cmd("mako")
           hl.exec_cmd("blueman-applet")
           
-          hl.exec_cmd("setpriv --ambient-caps -all steam", { workspace = "8 silent" })
+          hl.exec_cmd("setpriv --ambient-caps -all steam -dev", { workspace = "8 silent" })
           hl.exec_cmd("setpriv --ambient-caps -all signal-desktop", { workspace = "9 silent" })
           hl.exec_cmd("setpriv --ambient-caps -all spotify", { workspace = "10 silent" })
           
