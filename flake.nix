@@ -15,6 +15,11 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
+    proton-ge = {
+      url = "github:Daaboulex/proton-ge-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # NixOS profiles to optimize settings for different hardware
     hardware.url = "github:nixos/nixos-hardware";
 
@@ -31,6 +36,7 @@
       nix-darwin,
       home-manager,
       catppuccin,
+      proton-ge,
       ...
     }@inputs:
     let

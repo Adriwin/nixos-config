@@ -1,10 +1,12 @@
-{ pkgs, ... }:
+{ pkgs, inputs, ... }:
 {
   # Steam gaming platform configuration
   programs.steam = {
     enable = true;
     remotePlay.openFirewall = true;
     dedicatedServer.openFirewall = true;
+    # Use the dedicated flake for latest updates
+    extraCompatPackages = [ inputs.proton-ge.packages.${pkgs.system}.default ];
   };
 
   # Systemd user service that auto-configures Steam shader threads
