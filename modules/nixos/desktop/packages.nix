@@ -100,6 +100,7 @@
     libsForQt5.qt5ct
     hyprland-qt-support
     unzip
+    unrar
     cabextract
     zenity
     p7zip
